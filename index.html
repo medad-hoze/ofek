@@ -701,16 +701,184 @@
             font-size: clamp(0.85rem, 2vw, 1rem);
         }
 
-        .flag-circle {
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-left: 6px;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
-    vertical-align: middle;
-}
-
+        .hero-image {
+            position: relative;
+            max-width: 600px;
+            width: 100%;
+        }
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 12px;
+            border-radius: 24px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .glass img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 16px;
+            display: block;
+        }
+        
+        /* Modern Flag Ribbon */
+        .flag-ribbon {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            width: 120px;
+            height: 120px;
+            overflow: hidden;
+            filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.25));
+            pointer-events: none;
+            z-index: 10;
+        }
+        
+        .flag-ribbon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0 120px 120px 0;
+            border-color: transparent #ffffff transparent transparent;
+            background: transparent;
+        }
+        
+        .flag-ribbon::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0 116px 116px 0;
+            border-color: transparent rgba(255, 255, 255, 0.95) transparent transparent;
+            background: transparent;
+            box-shadow: inset -2px 2px 8px rgba(0, 0, 0, 0.08);
+        }
+        
+        .flag-container {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            width: 52px;
+            height: 52px;
+            transform: rotate(45deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+            animation: gentleFloat 3s ease-in-out infinite;
+        }
+        
+        .flag-container img {
+            width: 42px;
+            height: auto;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease;
+        }
+        
+        .flag-ribbon:hover .flag-container img {
+            transform: scale(1.1);
+        }
+        
+        /* Floating Card */
+        .floating-card {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 12px 20px;
+            border-radius: 100px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #1a202c;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            animation: float 6s ease-in-out infinite;
+            z-index: 5;
+        }
+        
+        .floating-card.top {
+            top: 20px;
+            left: 20px;
+        }
+        
+        .floating-card span {
+            font-size: 1.5rem;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes gentleFloat {
+            0%, 100% { transform: rotate(45deg) translateY(0px); }
+            50% { transform: rotate(45deg) translateY(-3px); }
+        }
+        
+        /* Shimmer effect on ribbon */
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        
+        .flag-ribbon::after {
+            background: linear-gradient(
+                90deg,
+                rgba(255, 255, 255, 0.95) 0%,
+                rgba(255, 255, 255, 0.98) 50%,
+                rgba(255, 255, 255, 0.95) 100%
+            );
+            background-size: 200% 100%;
+            animation: shimmer 8s linear infinite;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 640px) {
+            .flag-ribbon {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .flag-ribbon::before {
+                border-width: 0 100px 100px 0;
+            }
+            
+            .flag-ribbon::after {
+                border-width: 0 96px 96px 0;
+            }
+            
+            .flag-container {
+                top: 15px;
+                right: 15px;
+                width: 45px;
+                height: 45px;
+            }
+            
+            .flag-container img {
+                width: 36px;
+            }
+            
+            .floating-card {
+                font-size: 0.85rem;
+                padding: 10px 16px;
+            }
+        }
         /* Mobile Responsive */
         @media (max-width: 768px) {
             nav {
@@ -953,15 +1121,21 @@
                     <a href="#contact" class="glass" style="padding: 10px 25px; border-radius: 25px; text-decoration: none; color: white;">צרו קשר</a>
                 </div>
             </div>
-            <div class="hero-image">
-                <div class="glass" style="padding: 10px; border-radius: 20px;">
-                    <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=1600&auto=format&fit=crop" alt="פיצה איטלקית">
+    <div class="hero-image">
+        <div class="glass">
+            <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=1600&auto=format&fit=crop" alt="פיצה איטלקית">
+            <!-- Modern Israel Flag Ribbon -->
+            <div class="flag-ribbon">
+                <div class="flag-container">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/d/d4/Flag_of_Israel.svg" alt="Israel Flag">
                 </div>
-                <div class="floating-card top">
-                    <span style="font-size: 1.5rem;">👨‍🍳</span> 5+ שנות ניסיון
-                </div>
-
             </div>
+        </div>
+        <div class="floating-card top">
+            <span>👨‍🍳</span> 5+ שנות ניסיון
+        </div>
+    </div>
+
         </div>
     </section>
 
@@ -1236,16 +1410,23 @@
       <li><a href="#contact">צור קשר</a></li>
     </ul>
 
-    <div style="display: flex; gap: 10px; align-items: center;">
-      <a href="#contact" class="cta-button">הזמן אירוע / סדנה</a>
-
-      <!-- WhatsApp link -->
-      <a href="https://wa.me/972546198005" target="_blank" 
-         style="color: #25D366; font-size: 1.8rem;" 
-         title="שלח הודעת WhatsApp">
-        <i class="fab fa-whatsapp"></i>
-      </a>
-    </div>
+<div style="display: flex; gap: 10px; align-items: center;">
+  <a href="#contact" class="cta-button">הזמן אירוע / סדנה</a>
+  
+  <!-- WhatsApp link -->
+  <a href="https://wa.me/972546198005" target="_blank"
+     style="color: #25D366; font-size: 1.8rem;"
+     title="שלח הודעת WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+  
+  <!-- Instagram link -->
+  <a href="https://www.instagram.com/hozeofek" target="_blank"
+     style="color: #E4405F; font-size: 1.8rem;"
+     title="עקוב אחרינו באינסטגרם">
+    <i class="fab fa-instagram"></i>
+  </a>
+</div>
   </div>
 </nav>
     <!-- Footer -->
