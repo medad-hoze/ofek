@@ -820,6 +820,21 @@
             font-size: 1.5rem;
             filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
         }
+
+        .flag-circle {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    border: 2px solid #ffffff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.flag-circle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
         
         @keyframes float {
             0%, 100% { transform: translateY(0px); }
